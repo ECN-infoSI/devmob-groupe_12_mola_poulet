@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reponse1">hello</string>
+    <string name="reponse2">goodbye</string>
+    <string name="reponse3">thank you</string>
+</resources>

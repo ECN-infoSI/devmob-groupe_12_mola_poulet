@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reponse1">Système d\'Informations</string>
+    <string name="reponse2">kotlin</string>
+    <string name="reponse3">Apache Netbeans</string>
+</resources>
