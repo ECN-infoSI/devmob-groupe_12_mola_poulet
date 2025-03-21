@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="ficheRevision1Question">
-        <item>Que signifie SI dans INFOSI?</item>
-        <item>Quel est le nom du langage sous Android?</item>
-        <item>Comment s\'appelle l\'IDE java utilisé en cours d'INFOSI?</item>
+    <string-array name="ficheRevision1Answers">
+        <item>Système d\'Informations</item>
+        <item>kotlin</item>
+        <item>Apache Netbeans</item>
     </string-array>
 </resources>
