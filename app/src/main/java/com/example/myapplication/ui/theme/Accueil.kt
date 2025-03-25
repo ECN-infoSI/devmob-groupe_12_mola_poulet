@@ -1,5 +1,7 @@
 package com.example.myapplication.ui.theme
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +24,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,7 +49,7 @@ fun AcceuilAppBar(
 }
 
 @Composable
-fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=46, green=58,blue=98))){
+fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=46, green=58,blue=98)), onRevisionClicked: (Int) -> Unit){
     Column(modifier=Modifier.fillMaxSize().background(color= Color(alpha = 255,red=46, green=58,blue=98)), verticalArrangement = Arrangement.Center,horizontalAlignment = Alignment.CenterHorizontally){
         Row(horizontalArrangement = Arrangement.Center, modifier=modifier) {
             Button(
@@ -57,9 +61,9 @@ fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=
         }
         Column(modifier=Modifier.fillMaxWidth().padding(20.dp),horizontalAlignment = Alignment.Start){
             Row(modifier=Modifier.fillMaxWidth()){
-                Text("liste 1", modifier=modifier,color=Color.White, fontSize = 28.sp)
+                Text(stringResource(R.string.fiche_anglais), modifier=modifier,color=Color.White, fontSize = 28.sp)
                 Row(modifier=Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.End){
-                    Button(modifier=Modifier,onClick={}){
+                    Button(modifier=Modifier,onClick={onRevisionClicked(R.string.fiche_anglais)}){
                         Image(painter= painterResource(R.drawable.truc),
                             contentDescription=null,
                             contentScale= ContentScale.Fit,
@@ -74,7 +78,11 @@ fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=
                             modifier=Modifier.size(32.dp)
                         )
                     }
-                    Button(modifier=Modifier,onClick={}){
+                    val context = LocalContext.current
+                    val subject=""
+                    val summary="Code "+stringResource(R.string.fiche_anglais)
+                    Button(modifier=Modifier,onClick={
+                        shareFiche(context, subject = subject, summary = summary)}){
                         Image(painter= painterResource(R.drawable.partage),
                             contentDescription=null,
                             contentScale= ContentScale.Fit,
@@ -91,7 +99,7 @@ fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=
                 }
             }
             Row(modifier=Modifier.fillMaxWidth()){
-                Text("liste 2", modifier=modifier,color=Color.White, fontSize = 28.sp)
+                Text(stringResource(R.string.fiche_infosi), modifier=modifier,color=Color.White, fontSize = 28.sp)
                 Row(modifier=Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.End){
                     Button(modifier=Modifier,onClick={}){
                         Image(painter= painterResource(R.drawable.truc),
@@ -109,7 +117,10 @@ fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=
                             modifier=Modifier.size(32.dp)
                         )
                     }
-                    Button(modifier=Modifier,onClick={}){
+                    val context = LocalContext.current
+                    val subject=""
+                    val summary="Code "+stringResource(R.string.fiche_infosi)
+                    Button(modifier=Modifier,onClick={ shareFiche(context,subject,summary) }){
                         Image(painter= painterResource(R.drawable.partage),
                             contentDescription=null,
                             contentScale= ContentScale.Fit,
@@ -137,8 +148,22 @@ fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=
 
 
 }
+fun shareFiche(context: Context, subject: String, summary: String) {
+    val intent = Intent(Intent.ACTION_SEND).apply{
+        type = "text/plain"
+        putExtra(Intent.EXTRA_SUBJECT, subject)
+        putExtra(Intent.EXTRA_TEXT, summary)
+    }
+    context.startActivity(
+        Intent.createChooser(
+            intent,
+            context.getString(R.string.fiche_anglais)
+        )
+    )
+}
 @Preview
 @Composable
 fun AccueilPreview(){
-    Accueil()
+    AcceuilAppBar()
+    Accueil(onRevisionClicked = {})
 }

@@ -44,10 +44,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyApplicationTheme {
+                val navController = rememberNavController()
                 Scaffold(modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
                     NavHost(
-                        navController = rememberNavController(),
+                        navController = navController,
                         startDestination = AppliScreen.Start.name,
                         modifier = Modifier.padding(innerPadding)
                     ) {
@@ -60,7 +61,8 @@ class MainActivity : ComponentActivity() {
                                         green = 58,
                                         blue = 98
                                     )
-                                )
+                                ),
+                                onRevisionClicked = {navController.navigate(AppliScreen.Revision.name)}
                             )
                         }
                         /*composable(route = AppliScreen.Revision.name) {

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="ficheRevision1Answers">
-        <item>Système d\'Informations</item>
-        <item>kotlin</item>
-        <item>Apache Netbeans</item>
-    </string-array>
-</resources>

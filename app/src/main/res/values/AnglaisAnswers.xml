@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="ficheRevision1Answers">
-        <item>hello</item>
-        <item>goodbye</item>
-        <item>thank you</item>
-    </string-array>
-</resources>

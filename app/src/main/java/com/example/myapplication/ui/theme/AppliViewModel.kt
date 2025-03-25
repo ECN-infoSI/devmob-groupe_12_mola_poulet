@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlin.random.Random
 
 class AppliViewModel: ViewModel() {
@@ -50,7 +51,6 @@ class AppliViewModel: ViewModel() {
     }
 
     fun skipQuestion() {
-        updateAppliState(_uiState.value.score)
         updateUserGuess("")
     }
 
@@ -65,8 +65,8 @@ class AppliViewModel: ViewModel() {
 
     fun checkUserGuess() {
         if (userGuess.equals(currentQuestionAnswer.second, ignoreCase = true)) {
-            val updatedScore = _uiState.value.plus()
-            updateAppliState(updatedScore)
+            val updatedScore = _uiState.value
+
         } else {
             _uiState.update { currentState ->
                 currentState.copy(isGuessedAnswerWrong = true)
