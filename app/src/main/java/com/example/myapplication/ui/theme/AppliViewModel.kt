@@ -8,10 +8,11 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlin.random.Random
 
 class AppliViewModel: ViewModel() {
-    private val _uiState = MutableStateFlow(AppliUiState)
+    private val _uiState = MutableStateFlow(AppliUiState())
     val uiState: StateFlow<AppliUiState> = _uiState.asStateFlow()
 
     private lateinit var currentFlashCardName: String
@@ -80,7 +81,7 @@ class AppliViewModel: ViewModel() {
                 currentState.copy(
                     isGuessedAnswerWrong = false,
                     score = updatedScore,
-                    isGameOver = true
+                    isRevisionOver = true
                 )
             }
         } else {
