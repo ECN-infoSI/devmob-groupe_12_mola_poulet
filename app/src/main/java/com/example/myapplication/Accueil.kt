@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.theme
+package com.example.myapplication
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -27,11 +26,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myapplication.R
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,7 +47,7 @@ fun AcceuilAppBar(
 }
 
 @Composable
-fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=46, green=58,blue=98)), onRevisionClicked: (Int) -> Unit){
+fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=46, green=58,blue=98)), onRevisionClicked: (String) -> Unit,viewModel: AppliViewModel =viewModel()){
     Column(modifier=Modifier.fillMaxSize().background(color= Color(alpha = 255,red=46, green=58,blue=98)), verticalArrangement = Arrangement.Center,horizontalAlignment = Alignment.CenterHorizontally){
         Row(horizontalArrangement = Arrangement.Center, modifier=modifier) {
             Button(
@@ -59,11 +57,13 @@ fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=
                 Text("Créer sa propre fiche", fontSize = 24.sp)
             }
         }
+
         Column(modifier=Modifier.fillMaxWidth().padding(20.dp),horizontalAlignment = Alignment.Start){
             Row(modifier=Modifier.fillMaxWidth()){
+                val texte=stringResource(R.string.fiche_anglais)
                 Text(stringResource(R.string.fiche_anglais), modifier=modifier,color=Color.White, fontSize = 28.sp)
                 Row(modifier=Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.End){
-                    Button(modifier=Modifier,onClick={onRevisionClicked(R.string.fiche_anglais)}){
+                    Button(modifier=Modifier,onClick={onRevisionClicked(texte)}){
                         Image(painter= painterResource(R.drawable.truc),
                             contentDescription=null,
                             contentScale= ContentScale.Fit,
@@ -82,7 +82,8 @@ fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=
                     val subject=""
                     val summary="Code "+stringResource(R.string.fiche_anglais)
                     Button(modifier=Modifier,onClick={
-                        shareFiche(context, subject = subject, summary = summary)}){
+                        shareFiche(context, subject = subject, summary = summary)
+                    }){
                         Image(painter= painterResource(R.drawable.partage),
                             contentDescription=null,
                             contentScale= ContentScale.Fit,
@@ -99,9 +100,11 @@ fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=
                 }
             }
             Row(modifier=Modifier.fillMaxWidth()){
+                val texte=stringResource( R.string.fiche_infosi)
                 Text(stringResource(R.string.fiche_infosi), modifier=modifier,color=Color.White, fontSize = 28.sp)
                 Row(modifier=Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.End){
-                    Button(modifier=Modifier,onClick={}){
+                    Button(modifier=Modifier,onClick={
+                        onRevisionClicked(texte)}){
                         Image(painter= painterResource(R.drawable.truc),
                             contentDescription=null,
                             contentScale= ContentScale.Fit,
@@ -157,7 +160,7 @@ fun shareFiche(context: Context, subject: String, summary: String) {
     context.startActivity(
         Intent.createChooser(
             intent,
-            context.getString(R.string.fiche_anglais)
+            context.getString(R.string.app_name)
         )
     )
 }

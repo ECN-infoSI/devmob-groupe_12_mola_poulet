@@ -1,11 +1,13 @@
-package com.example.myapplication.ui.theme
+package com.example.myapplication
 
 import android.content.Context
 import android.content.res.Resources
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.myapplication.ui.theme.AppliUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -54,6 +56,29 @@ class AppliViewModel: ViewModel() {
         updateUserGuess("")
     }
 
+
+    fun updateCardName(nom:String){
+        var questionAnswer=Pair("","")
+        if(nom=="anglais") {
+            questionAnswer = Pair("What is the english for 'Quoi'","What")
+        }
+        if(nom=="info"){
+            questionAnswer= Pair("Qu'est ce qu'un composable en Kotlin ?","C'est un composant d'une UI")
+        }
+        _uiState.update { currentState->
+            currentState.copy(currentFlashCardName=nom,
+            currentQuestionAnswer = questionAnswer
+            )
+        }
+
+
+
+    }
+    fun updateCurrentShowing(){
+        _uiState.update{currentState->
+        currentState.copy(currentQuestionAnswer = Pair(currentQuestionAnswer.second,currentQuestionAnswer.first))}
+    }
+
     fun resetFlashCard() {
         usedQuestions.clear()
         usedAnswers.clear()
@@ -62,6 +87,8 @@ class AppliViewModel: ViewModel() {
     fun updateUserGuess(guessedAnswer: String) {
         userGuess = guessedAnswer
     }
+
+
 
     fun checkUserGuess() {
         if (userGuess.equals(currentQuestionAnswer.second, ignoreCase = true)) {

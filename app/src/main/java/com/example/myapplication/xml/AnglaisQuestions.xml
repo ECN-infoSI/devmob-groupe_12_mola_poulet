@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string-array name="AnglaisQuestion">
-        <item>bonjour</item>
-        <item>au revoir</item>
-        <item>merci</item>
-    </string-array>
-</resources>
