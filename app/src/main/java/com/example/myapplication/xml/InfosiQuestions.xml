@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="InfosiQuestion">
+        <item>Que signifie SI dans INFOSI?</item>
+        <item>Quel est le nom du langage sous Android?</item>
+        <item>Comment s\'appelle l\'IDE java utilisé en cours d'INFOSI?</item>
+    </string-array>
+</resources>
