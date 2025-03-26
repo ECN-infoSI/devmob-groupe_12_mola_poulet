@@ -39,6 +39,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
+/**
+ * Composable de la page de révision
+ */
 @Composable
 fun Revision(
     questions:Pair<String,String>,
@@ -74,6 +77,9 @@ fun Revision(
     }
 }
 
+/**
+ * Composable assurant l'écran de question réponse (on ne peut afficher qu'une seule question par fiche avec cette application)
+ */
 @Composable
 fun RevisionLayout(
     questions:Pair<String,String>,
@@ -82,7 +88,7 @@ fun RevisionLayout(
     onUserGuessChanged: (String)-> Unit={},
 ) {
     val uiState by appliViewModel.uiState.collectAsState()
-
+    appliViewModel.updateQuestionAnswer(questions)
     Card(
         modifier = Modifier.fillMaxHeight(),
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
@@ -100,7 +106,7 @@ fun RevisionLayout(
             Text(
                 modifier = Modifier,
                 color = colorResource(R.color.white),
-                text = questions.first
+                text = uiState.currentQuestionAnswer.first
             )
             Spacer(modifier = Modifier.height(24.dp))
         }
@@ -127,7 +133,7 @@ fun RevisionLayout(
                     imeAction = ImeAction.Done
                 ),
                 keyboardActions = KeyboardActions(
-                    onDone = {}
+                    onDone = {appliViewModel.inverseQuestionAnswer(questions)}
                 )
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -138,6 +144,8 @@ fun RevisionLayout(
                     .fillMaxWidth()
                     .padding(8.dp)
             ) {
+                {
+                }
             }
         }
     }

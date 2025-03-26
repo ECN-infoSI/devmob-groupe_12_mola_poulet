@@ -31,21 +31,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun AcceuilAppBar(
-    modifier:Modifier=Modifier
-) {TopAppBar(
-        title = { Text("Accueil") },
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
-        ),
-        modifier = modifier,
-        navigationIcon = {
-        }
-    )
-}
-
+/**
+ * Le composable d'accueil
+ */
 @Composable
 fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=46, green=58,blue=98)), onRevisionClicked: (String) -> Unit,viewModel: AppliViewModel =viewModel()){
     Column(modifier=Modifier.fillMaxSize().background(color= Color(alpha = 255,red=46, green=58,blue=98)), verticalArrangement = Arrangement.Center,horizontalAlignment = Alignment.CenterHorizontally){
@@ -57,11 +45,11 @@ fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=
                 Text("Créer sa propre fiche", fontSize = 24.sp)
             }
         }
-
+        //Fonctionnement artificiel de l'application, il faudrait une base de données ici pour afficher les fiches
         Column(modifier=Modifier.fillMaxWidth().padding(20.dp),horizontalAlignment = Alignment.Start){
             Row(modifier=Modifier.fillMaxWidth()){
                 val texte=stringResource(R.string.fiche_anglais)
-                Text(stringResource(R.string.fiche_anglais), modifier=modifier,color=Color.White, fontSize = 28.sp)
+                Text(stringResource(R.string.fiche_anglais), modifier=modifier,color=Color.White, fontSize = 20.sp)
                 Row(modifier=Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.End){
                     Button(modifier=Modifier,onClick={onRevisionClicked(texte)}){
                         Image(painter= painterResource(R.drawable.truc),
@@ -101,7 +89,7 @@ fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=
             }
             Row(modifier=Modifier.fillMaxWidth()){
                 val texte=stringResource( R.string.fiche_infosi)
-                Text(stringResource(R.string.fiche_infosi), modifier=modifier,color=Color.White, fontSize = 28.sp)
+                Text(stringResource(R.string.fiche_infosi), modifier=modifier,color=Color.White, fontSize = 20.sp)
                 Row(modifier=Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.End){
                     Button(modifier=Modifier,onClick={
                         onRevisionClicked(texte)}){
@@ -151,6 +139,10 @@ fun Accueil(modifier: Modifier=Modifier.background(color= Color(alpha = 255,red=
 
 
 }
+
+/**
+ * La méthode d'appel à un partage à une application tierce grâce à un intent
+ */
 fun shareFiche(context: Context, subject: String, summary: String) {
     val intent = Intent(Intent.ACTION_SEND).apply{
         type = "text/plain"
@@ -164,9 +156,12 @@ fun shareFiche(context: Context, subject: String, summary: String) {
         )
     )
 }
+
+/**
+ * La preview de l'accueil
+ */
 @Preview
 @Composable
 fun AccueilPreview(){
-    AcceuilAppBar()
     Accueil(onRevisionClicked = {})
 }
